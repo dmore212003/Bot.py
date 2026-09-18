@@ -1,11 +1,10 @@
-import time
+import asyncio
 ‎import requests
-‎import asyncio
-‎from telegram import Bot
+import telegram 
 ‎
 ‎# 1. Configuration (Replace with your actual Telegram details)
 ‎TELEGRAM_TOKEN = "8808593549:AAHn7yZ36EPAvBvwMQz_Ceu21UYvHvILuv8"
-‎CHAT_ID = "YOUR_PERSONAL_CHAT_ID_HERE"
+‎CHAT_ID = "8709943285"
 ‎
 ‎# 2. SportyBet Simulated Virtual API Endpoint 
 ‎# (SportyBet feeds live JSON data directly into their UI via APIs)
