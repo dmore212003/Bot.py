@@ -1,6 +1,4 @@
-import asyncio‎import telegram
-‎import random
-‎
+import asyncio‎, telegram, random
 ‎TELEGRAM_TOKEN = "8973924476:AAFo-UcWTWV8Q-p6TAvMAlA0"
 ‎CHAT_ID = "8709943285"
 ‎
