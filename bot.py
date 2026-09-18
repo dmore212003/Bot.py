@@ -1,5 +1,4 @@
-import asyncio
-‎import telegram
+import asyncio‎import telegram
 ‎import random
 ‎
 ‎TELEGRAM_TOKEN = "8973924476:AAFo-UcWTWV8Q-p6TAvMAlA0"
