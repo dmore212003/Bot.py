@@ -5,6 +5,7 @@ import telegram
 TELEGRAM_TOKEN = "8808593549:AAHn7yZ36EPAvBvwMQz_Ceu21UYvHvILuv8"
 CHAT_ID = "8709943285"
 
+# Target the specific SportyBet Nigeria Virtual League API endpoint
 SPORTY_API_URL = "https://sportybet.com" 
 bot = telegram.Bot(token=TELEGRAM_TOKEN)
 
@@ -14,7 +15,9 @@ def fetch_virtual_data():
         "Accept": "application/json, text/plain, */*",
         "Accept-Language": "en-US,en;q=0.9",
         "Origin": "https://sportybet.com",
-        "Referer": "https://sportybet.com/"
+        "Referer": "https://sportybet.com/virtual/",
+        # If the block continues, paste your browser cookie string between these quotes
+        "Cookie": ""
     }
     try:
         response = requests.get(SPORTY_API_URL, headers=headers, timeout=10)
@@ -27,9 +30,13 @@ def fetch_virtual_data():
         return None
 
 def analyze_predictions(data):
-    if not data or not isinstance(data, dict) or "data" not in data:
-        return ["⏳ Waiting for SportyBet live virtual data..."]
+    if not data or not isinstance(data, dict):
+        return ["⏳ Connecting to live data stream..."]
     
+    # Check if the API returned an explicit error message structure
+    if data.get("code") != 10000:
+        return ["⚠️ SportyBet requires an updated cookie session to display odds."]
+        
     fixtures = data.get("data", {}).get("fixtures", [])[:3]
     if not fixtures:
         return ["⚽ Live virtual round updating. Waiting for new matches..."]
@@ -52,4 +59,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-  
+    
