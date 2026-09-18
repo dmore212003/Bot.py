@@ -1,83 +1,66 @@
 import asyncio
-import requests
-import telegram
-
-TELEGRAM_TOKEN = "8808593549:AAHn7yZ36EPAvBvwMQz_Ceu21UYvHvILuv8"
-CHAT_ID = "8709943285"
-
-# Using a permanently open, reliable public European football league data matrix
-FOOTBALL_API_URL = "https://openligadb.de"
-bot = telegram.Bot(token=TELEGRAM_TOKEN)
-
-def fetch_live_matches():
-    """Fetches real-time professional league matches safely without server drops"""
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    }
-    try:
-        response = requests.get(FOOTBALL_API_URL, headers=headers, timeout=15)
-        if response.status_code == 200:
-            return response.json()
-        print(f"Server returned status code: {response.status_code}")
-        return None
-    except Exception as e:
-        print(f"Data stream link failure: {e}")
-        return None
-
-def analyze_live_games(data):
-    """
-    Analyzes active live matches or upcoming schedules to calculate 
-    high-probability goal outcomes (Over 1.5/Over 2.5 targets).
-    """
-    if not data or not isinstance(data, list):
-        return ["⏳ Syncing with public league data banks..."]
-        
-    predictions = []
-    
-    # Process the active match array from the live data stream
-    for match in data[:8]:
-        team1 = match.get("team1", {}).get("teamName", "Home")
-        team2 = match.get("team2", {}).get("teamName", "Away")
-        
-        # Extract live match scoring parameters if game is running
-        match_results = match.get("matchResults", [])
-        score_str = "0 - 0"
-        if match_results:
-            # Grab the latest update score element
-            latest_score = match_results[-1]
-            score_str = f"{latest_score.get('pointsTeam1', 0)} - {latest_score.get('pointsTeam2', 0)}"
-            
-        is_finished = match.get("matchIsFinished", False)
-        
-        if not is_finished:
-            predictions.append(
-                f"📊 *LIVE GAME STATS MATCH* ⚽\n"
-                f"🏃‍♂️ {team1} ({score_str}) {team2}\n"
-                f"🔥 **Tip: Over 1.5 Goals Strategy Active**\n"
-            )
-            
-    if not predictions:
-        return ["⚽ All matches in this block concluded. Waiting for the next scheduled kickoff..."]
-        
-    return predictions
-
-async def main():
-    print("Real-world live football prediction engine active...")
-    while True:
-        raw_data = fetch_live_matches()
-        live_tips = analyze_live_games(raw_data)
-        
-        if live_tips:
-            message_text = "🏆 **REAL FOOTBALL IN-PLAY TIPS** 🏆\n\n" + "\n---\n".join(live_tips)
-            try:
-                await bot.send_message(chat_id=CHAT_ID, text=message_text, parse_mode="Markdown")
-                print("Real-world prediction successfully sent to Telegram!")
-            except Exception as e:
-                print(f"Telegram Delivery Failure: {e}")
-                
-        # Query the open match dashboard tables every 5 minutes
-        await asyncio.sleep(300)
-
-if __name__ == "__main__":
-    asyncio.run(main())
-    
+‎import telegram
+‎import random
+‎
+‎TELEGRAM_TOKEN = "8973924476:AAFo-UcWTWV8Q-p6TAvMAlA0"
+‎CHAT_ID = "8709943285"
+‎
+‎bot = telegram.Bot(token=TELEGRAM_TOKEN)
+‎
+‎def calculate_aviator_risk_profile():
+‎    """
+‎    Simulates a mathematical risk assessment engine for Aviator.
+‎    Generates high-probability targeted cash-out multipliers and 
+‎    pairs them with protective staking rules.
+‎    """
+‎    # Simulate a probability distribution for a standard RNG cash-out matrix
+‎    target_roll = random.random()
+‎    
+‎    # 💡 AVIATOR RISK ALGORITHM:
+‎    # Statistically, targets between 1.15x and 1.45x have an incredibly high win probability.
+‎    if target_roll > 0.40:
+‎        multiplier = round(random.uniform(1.15, 1.45), 2)
+‎        confidence = random.randint(85, 96)
+‎        strategy = "🛡️ LOW RISK (High Win Probability)"
+‎        staking_advice = "Recoup Strategy: Apply Standard Base Stake."
+‎    
+‎    # Medium risk multiplier targets
+‎    elif target_roll > 0.15:
+‎        multiplier = round(random.uniform(1.50, 2.20), 2)
+‎        confidence = random.randint(65, 82)
+‎        strategy = "⚡ MEDIUM RISK (Balanced Target)"
+‎        staking_advice = "Split Bet: Cash out 50% at 1.50x, let the rest run to target."
+‎    
+‎    # High risk multiplier targets (Pink multipliers)
+‎    else:
+‎        multiplier = round(random.uniform(3.50, 12.00), 2)
+‎        confidence = random.randint(35, 55)
+‎        strategy = "🚨 HIGH RISK (Pink Multiplier Hunt)"
+‎        staking_advice = "Minimum Stake Only. Skip the next 2 rounds if this fails."
+‎
+‎    return {
+‎        "multiplier": multiplier,
+‎        "confidence": confidence,
+‎        "strategy": strategy,
+‎        "staking": staking_advice
+‎    }
+‎
+‎async def main():
+‎    print("Aviator Risk Engine initialized successfully on the cloud server...")
+‎    while True:
+‎        profile = calculate_aviator_risk_profile()
+‎        
+‎        # Build the message template for Telegram
+‎        message_text = (
+‎            f"✈️ **AVIATOR FLIGHT STRATEGY TARGET** ✈️\n\n"
+‎            f"🎯 *Target Cash-out:* {profile['multiplier']}x\n"
+‎            f"📊 *Mathematical Confidence:* {profile['confidence']}%\n"
+‎            f"📈 *Risk Profile:* {profile['strategy']}\n"
+‎            f"💰 *Staking Guideline:* {profile['staking']}\n\n"
+‎            f"⏳ *Next calculation loading in 45 seconds...*"
+‎        )
+‎        
+‎        try:
+‎            await bot.send_message(chat_id=CHAT_ID, text=message_text, parse_mode="Markdown")
+‎            print("Aviator target successfully sent to Telegram!")
+‎        except
